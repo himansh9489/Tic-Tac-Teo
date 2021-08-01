@@ -1,0 +1,190 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  /* declare global variable*/
+}
+body {
+  margin: 0px;
+  background: #eee;
+  /* to remove margin between body element (ex-startButton)*/
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.player {
+  display: flex;
+  flex-direction: row;
+}
+
+.player-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid rebeccapurple;
+  border-radius: 5%;
+  font-size: 2rem;
+  margin: 10px;
+  padding: 20px;
+}
+input {
+  height: 30px;
+  border: 2px solid rebeccapurple;
+  border-radius: 3%;
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+  border: 2px solid rebeccapurple;
+  background-color: ivory;
+  border-radius: 50%;
+  font-size: 2rem;
+  margin: 10px;
+  padding: 20px;
+}
+.board {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: solid 1px rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer; /* to put cursor onto every cell*/
+}
+
+/* to remove lines from border on all 4 sides*/
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+/*-----------------------*/
+
+/* To not allowed the cursor on to the occupied cells*/
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
+}
+
+/*--------------*/
+/* give color to X and O */
+.cell.x::before,
+.cell.x::after {
+  background-color: blue;
+}
+.cell.circle::before {
+  background-color: green;
+}
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: lightgray;
+}
+/*------------------*/
+/* create X in the box */
+/* also add what happens when cursor is hover over boxes*/
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+/*-------------------------*/
+/* create O in the box */
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: white;
+}
+/*------------------------*/
+.winning-message {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4rem;
+}
+.winning-message.show {
+  display: flex;
+}
+.Button {
+  font-size: 2rem;
+  padding: 0.25rem, 0.5rem;
+  color: darkviolet;
+  width: 120px;
+  cursor: pointer;
+  background-color: white;
+}
+.Button:hover {
+  background-color: darkviolet;
+  color: white;
+  border-color: white;
+}
